@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class BirdMovement : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class BirdMovement : MonoBehaviour
     public static string minutesfinal;
     public static string secondsfinal;
     private float startTime;
+    public TMPro.TextMeshProUGUI timertext;
 
 
     private void Start()
@@ -59,8 +61,8 @@ public class BirdMovement : MonoBehaviour
             //vars that store final time
             minutesfinal = minutes;
             secondsfinal = seconds;
-
         }
+        timertext.text = "Time: " + minutesfinal + ":" + secondsfinal;
     }
     IEnumerator Dead()
     {
