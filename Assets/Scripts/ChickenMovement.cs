@@ -13,11 +13,15 @@ public class ChickenMovement : MonoBehaviour
     Rigidbody2D rb;
     float jumpCount;
 
-    public Animator chickenAnim;
-
+    Animator chickenAnim;
     public GameObject egg;
+
+    AudioSource chickenAudio;
+    public AudioClip[] chickenFart;
     public void Start()
     {
+        chickenAnim = GetComponent<Animator>();
+        chickenAudio= GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
         jumpCount = 2f;
     }
@@ -53,6 +57,10 @@ public class ChickenMovement : MonoBehaviour
         {
             GameObject newEgg = Instantiate(egg, transform.position, Quaternion.identity);
             Destroy(newEgg, 3);
+
+            int randNoise = Random.Range(0, chickenFart.Length);
+            chickenAudio.clip = chickenFart[randNoise];
+            chickenAudio.Play();
         }
     }
 
