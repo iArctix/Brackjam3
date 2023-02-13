@@ -14,6 +14,8 @@ public class ChickenMovement : MonoBehaviour
     float jumpCount;
 
     public Animator chickenAnim;
+
+    public GameObject egg;
     public void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -46,6 +48,12 @@ public class ChickenMovement : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         jumpCount--;
         chickenAnim.SetBool("isJumping", true);
+
+        if(jumpCount == 0)
+        {
+            GameObject newEgg = Instantiate(egg, transform.position, Quaternion.identity);
+            Destroy(newEgg, 3);
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
