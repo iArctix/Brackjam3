@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class ChickenHealth : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    float health;
+    float maxHealth = 2f;
 
-    // Update is called once per frame
-    void Update()
+    public void TakeDamage()
     {
-        
+        health--;
+        if(health <= 0)
+        {
+            //Dead
+        }
+    }
+    public void GainHealth()
+    {
+        health++;
+        if(health > maxHealth)
+        {
+            health = maxHealth;
+        }
     }
 }
