@@ -6,9 +6,13 @@ using TMPro;
 
 public class BirdMovement : MonoBehaviour
 {
-    //Movement Vars
-    public float upForce = 200f;
-    public float rightspeed = 2f;
+    
+    //Horizontal Movement
+    public float upForce = 400f;
+    //Vertical Movement 
+    public float rightspeed = 15f;
+    public float acceleration = 0.5f;
+
     private Rigidbody2D birdRigidbody;
     public GameObject Camera;
     public bool isalive;
@@ -48,6 +52,7 @@ public class BirdMovement : MonoBehaviour
             }
             //vertical movement
             transform.position += new Vector3(rightspeed * Time.deltaTime, 0, 0);
+            rightspeed += acceleration * Time.deltaTime;
         }
         
     }
