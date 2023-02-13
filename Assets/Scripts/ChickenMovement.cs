@@ -18,6 +18,8 @@ public class ChickenMovement : MonoBehaviour
 
     AudioSource chickenAudio;
     public AudioClip[] chickenFart;
+
+    bool isDead;
     public void Start()
     {
         chickenAnim = GetComponent<Animator>();
@@ -28,12 +30,15 @@ public class ChickenMovement : MonoBehaviour
 
     public void FixedUpdate()
     {
-        rb.velocity = new Vector2(speed, rb.velocity.y);
+        if (!isDead)
+        {
+            rb.velocity = new Vector2(speed, rb.velocity.y);
+        }
     }
 
     private void Update()
     {
-        if (Input.GetButtonDown("Jump") && jumpCount > 0)
+        if (Input.GetButtonDown("Jump") && jumpCount > 0 && !isDead)
         {
             Jump();
         }
@@ -70,6 +75,19 @@ public class ChickenMovement : MonoBehaviour
         {
             jumpCount = 2;
             chickenAnim.SetBool("isJumping", false);
+        }
+
+        if(collision.gameObject.tag == "Obstacle")
+        {
+            //Grab Time
+            TimeSystem ts = GetComponent<TimeSystem>();
+            ts.isDead = true;
+            float timeSurvived = ts.time;
+
+            //Disable Movement
+            isDead = true;
+
+            //Death Animation
         }
     }
 }
