@@ -17,3 +17,8 @@ MonoBehaviour:
   minSpeed: 8
   maxSpeed: 8.1
   colliderSize: {x: 1.5, y: 0.5}
+  horn: 0
+  horns: []
+  specialHorn: {fileID: 0}
+  engineNoise:
+  - {fileID: 8300000, guid: 13a3731559aca1549a94a579d737a88c, type: 3}

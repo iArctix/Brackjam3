@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
@@ -31,6 +32,10 @@ public class TimeSystem : MonoBehaviour
                 {
                     GetComponent<ChickenMovement>().speed++;
                     currentTime++;
+
+                    ChickenObstacleSpawning cos =  GetComponent<ChickenObstacleSpawning>();
+                    cos.minSpawn -= 0.2f;
+                    cos.maxSpawn -= 0.25f;
                 }
             }
         }

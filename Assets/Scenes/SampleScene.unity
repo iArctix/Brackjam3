@@ -186,7 +186,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 1883.05, y: 16}
+  m_Size: {x: 72315, y: 16}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1023,6 +1023,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obstacles: {fileID: 5973049536260502807, guid: 9daceb2180328db4b9a09f5555426568, type: 3}
+  minSpawn: 0
+  maxSpawn: 0
 --- !u!95 &1880048667
 Animator:
   serializedVersion: 4
@@ -1293,7 +1295,7 @@ Transform:
   m_GameObject: {fileID: 2102092998}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 611.03, y: -0.63, z: 0}
-  m_LocalScale: {x: 1252.16, y: 1, z: 1}
+  m_LocalScale: {x: 402544.4, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

@@ -19,3 +19,14 @@ MonoBehaviour:
   minSpeed: 0
   maxSpeed: 3
   colliderSize: {x: 1.6, y: 0.7}
+  horn: 1
+  horns:
+  - {fileID: 8300000, guid: cf261f5fe4e12c8488bbf9732f26e69f, type: 3}
+  - {fileID: 8300000, guid: 951e1fffa290bbc4d91c9fa61a25244c, type: 3}
+  - {fileID: 8300000, guid: 6e32994bf308acf44b9d272e6c6fd8e8, type: 3}
+  - {fileID: 8300000, guid: b8e911f0ecd20b347b37d193913505ff, type: 3}
+  specialHorn: {fileID: 8300000, guid: afb0eb71cdedc944abaa12458e6be638, type: 3}
+  engineNoise:
+  - {fileID: 8300000, guid: 23f259f0e4bd8944c882c913468ef4f5, type: 3}
+  - {fileID: 8300000, guid: 01d46b0aeb3b44e4d8923b0827b296be, type: 3}
+  - {fileID: 8300000, guid: d070ab87445e6e34db38a05bd8cc639a, type: 3}
