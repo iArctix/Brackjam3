@@ -10,12 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b5340d0c97a17894693a0cee72343b7a, type: 3}
-  m_Name: GenericCar
+  m_Name: SpeedyCar
   m_EditorClassIdentifier: 
   obstacleSprite:
-  - {fileID: 21300000, guid: 6e148228871508a4c9e731bb21a19c6e, type: 3}
-  - {fileID: 21300000, guid: 5ad6b52025303db428388bf0c51db615, type: 3}
-  - {fileID: 21300000, guid: 4ee16c48fc23e1c42a904a6c3de79d6a, type: 3}
-  minSpeed: 0
-  maxSpeed: 3
-  colliderSize: {x: 1.6, y: 0.7}
+  - {fileID: 21300000, guid: 14c3bcf97dc73974786feecfd7b96137, type: 3}
+  minSpeed: 8
+  maxSpeed: 8.1
+  colliderSize: {x: 0, y: 0}

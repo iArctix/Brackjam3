@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class ObstacleStats : MonoBehaviour
 {
-    public ChickenObstacle co;
+    public ChickenObstacle[] obstacles;
+    ChickenObstacle co;
     Rigidbody2D rb;
     Vector2 force;
     private void Awake()
     {
+        //Decide which Obstacle to Spawn
+        int rObstacle = Random.Range(0, obstacles.Length);
+        co = obstacles[rObstacle];
+
         //Sprite
         int ranSprite = Random.Range(0, co.obstacleSprite.Length);
         GetComponent<SpriteRenderer>().sprite = co.obstacleSprite[ranSprite];
@@ -25,7 +30,7 @@ public class ObstacleStats : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = force;
+        rb.velocity = -force;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

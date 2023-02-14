@@ -99,7 +99,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa57d9f62aa7ba14c8b3917d2f260e52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  co: {fileID: 11400000, guid: 3ecef58557d5486469f5ca64cf2c2893, type: 2}
+  obstacles:
+  - {fileID: 11400000, guid: ce40fe74190e2394ca16beed8f5ec919, type: 2}
+  - {fileID: 11400000, guid: 3ecef58557d5486469f5ca64cf2c2893, type: 2}
 --- !u!50 &-4230325057156675318
 Rigidbody2D:
   serializedVersion: 4
