@@ -8,9 +8,8 @@ public class ChickenObstacleSpawning : MonoBehaviour
     float timer;
     public void SpawnObject()
     {
-        Vector2 spawnPos = new Vector2(gameObject.transform.position.x + 15f, 0);
+        Vector2 spawnPos = new Vector2(gameObject.transform.position.x + 20, 0.3f);
         GameObject obstacle = Instantiate(obstacles, spawnPos, Quaternion.identity);
-        Destroy(obstacle, 5);
 
         timer = Random.Range(1.5f, 5);
     }

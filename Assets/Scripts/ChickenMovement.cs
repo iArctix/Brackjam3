@@ -20,6 +20,9 @@ public class ChickenMovement : MonoBehaviour
     public AudioClip[] chickenFart;
 
     bool isDead;
+    bool rotate;
+
+    public GameObject barrier;
     public void Start()
     {
         chickenAnim = GetComponent<Animator>();
@@ -33,6 +36,11 @@ public class ChickenMovement : MonoBehaviour
         if (!isDead)
         {
             rb.velocity = new Vector2(speed, rb.velocity.y);
+        }
+
+        if (rotate)
+        {
+            rb.rotation += 10f;
         }
     }
 
@@ -50,6 +58,8 @@ public class ChickenMovement : MonoBehaviour
         {
             rb.velocity += Vector2.up * Physics.gravity.y * (lowJump - 1) * Time.deltaTime;
         }
+
+        barrier.transform.position = new Vector3(gameObject.transform.position.x - 20, barrier.transform.position.y, barrier.transform.position.z);
     }
 
     public void Jump()
@@ -71,23 +81,36 @@ public class ChickenMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Ground")
+        if(collision.gameObject.tag == "Ground" && !isDead)
         {
             jumpCount = 2;
             chickenAnim.SetBool("isJumping", false);
         }
+    }
 
-        if(collision.gameObject.tag == "Obstacle")
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Obstacle" && !isDead)
         {
             //Grab Time
             TimeSystem ts = GetComponent<TimeSystem>();
             ts.isDead = true;
             float timeSurvived = ts.time;
 
-            //Disable Movement
+            //Disable Things
             isDead = true;
+            GetComponent<ChickenObstacleSpawning>().enabled = false;
+            StartCoroutine(DeathRotation());
 
             //Death Animation
+            chickenAnim.SetBool("isJumping", true);
         }
+    }
+
+    IEnumerator DeathRotation()
+    {
+        rotate = true;
+        yield return new WaitForSeconds(1f);
+        rotate = false;
     }
 }
