@@ -16,4 +16,4 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 14c3bcf97dc73974786feecfd7b96137, type: 3}
   minSpeed: 8
   maxSpeed: 8.1
-  colliderSize: {x: 0, y: 0}
+  colliderSize: {x: 1.5, y: 0.5}

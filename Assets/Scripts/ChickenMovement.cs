@@ -18,6 +18,8 @@ public class ChickenMovement : MonoBehaviour
 
     AudioSource chickenAudio;
     public AudioClip[] chickenFart;
+    public AudioClip chickenJump;
+    public AudioClip chickenDeath;
 
     bool isDead;
     bool rotate;
@@ -76,7 +78,11 @@ public class ChickenMovement : MonoBehaviour
             int randNoise = Random.Range(0, chickenFart.Length);
             chickenAudio.clip = chickenFart[randNoise];
             chickenAudio.Play();
+            return;
         }
+
+        chickenAudio.clip = chickenJump;
+        chickenAudio.Play();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -102,8 +108,14 @@ public class ChickenMovement : MonoBehaviour
             GetComponent<ChickenObstacleSpawning>().enabled = false;
             StartCoroutine(DeathRotation());
 
-            //Death Animation
+            //Death Animation + Sound
             chickenAnim.SetBool("isJumping", true);
+
+            SpriteRenderer sr = GetComponent<SpriteRenderer>();
+            sr.color = new Color(1, 0.6f, 0.6f, 1);
+
+            chickenAudio.clip = chickenDeath;
+            chickenAudio.Play();
         }
     }
 

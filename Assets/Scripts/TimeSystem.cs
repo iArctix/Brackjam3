@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
 
@@ -11,6 +12,8 @@ public class TimeSystem : MonoBehaviour
     bool maxSpeed = false;
 
     public bool isDead;
+
+    public TextMeshProUGUI timeText;
     private void FixedUpdate()
     {
         if (!isDead)
@@ -31,5 +34,7 @@ public class TimeSystem : MonoBehaviour
                 }
             }
         }
+
+        timeText.text = time.ToString("F1");
     }
 }
