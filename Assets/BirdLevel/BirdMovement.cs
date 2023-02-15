@@ -26,10 +26,15 @@ public class BirdMovement : MonoBehaviour
     private float startTime;
     public TMPro.TextMeshProUGUI timertext;
 
+    //Animation
+    Animator birdAnim;
+    bool isAnimated;
+    bool rotate;
 
     private void Start()
     {
         birdRigidbody = GetComponent<Rigidbody2D>();
+        birdAnim = GetComponent<Animator>();
         isalive = true;
         startTime = Time.time;
     }
@@ -38,11 +43,14 @@ public class BirdMovement : MonoBehaviour
         Movement();
         Timer();
         CameraMovement();
+
+        if(rotate)
+            birdRigidbody.rotation += 1f;
+
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         StartCoroutine(Dead());
-        Debug.Log("Dead");
     }
     public void CameraMovement()
     {
@@ -70,6 +78,10 @@ public class BirdMovement : MonoBehaviour
                 birdRigidbody.velocity = Vector2.zero;
                 birdRigidbody.AddForce(new Vector2(0, upForce));
 
+                if (!isAnimated)
+                {
+                    StartCoroutine(BirdFlyAnimation());
+                }
             }
             //Horizontal Movement
             transform.position += new Vector3(rightspeed * Time.deltaTime, 0, 0);
@@ -92,12 +104,28 @@ public class BirdMovement : MonoBehaviour
     }
     IEnumerator Dead()
     {
+        //Change to Red
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        sr.color = new Color(1, 0.6f, 0.6f, 1);
+
+        //Do some Rotation
+        rotate = true;
+        yield return new WaitForSeconds(1f);
+        rotate = false;
+
+
+        //Whatever this is 
         isalive = false;
         yield return new WaitForSeconds(0.2f);
         Camera.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
-        
-        //code for death idk
-
     }
 
+    IEnumerator BirdFlyAnimation()
+    {
+        birdAnim.SetBool("isFly", true);
+        isAnimated = true;
+        yield return new WaitForSeconds(0.5f);
+        birdAnim.SetBool("isFly", false);
+        isAnimated = false;
+    }
 }
