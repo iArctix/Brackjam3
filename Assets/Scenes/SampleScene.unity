@@ -1107,6 +1107,7 @@ MonoBehaviour:
   fall: 1.7
   lowJump: 2
   egg: {fileID: 5374729116350145925, guid: 6de7f76e21882634e94fc4215699a8ea, type: 3}
+  deadSprite: {fileID: 6855445915758841061, guid: 08164c88e9697774eb630f1149072074, type: 3}
   chickenFart:
   - {fileID: 8300000, guid: 87afa40b4241a5e48ab70c1307f00724, type: 3}
   - {fileID: 8300000, guid: 0cd548d7b3488a54d8082b0e33883c79, type: 3}

@@ -128,6 +128,9 @@ public class ChickenMovement : MonoBehaviour
         rotate = true;
         yield return new WaitForSeconds(1f);
         rotate = false;
+
+        yield return new WaitForSeconds(2f);
+        Instantiate(deadSprite, gameObject.transform.position, Quaternion.identity);
     }
 
     public void Dead()
