@@ -17,6 +17,7 @@ public class ChickenMovement : MonoBehaviour
     public GameObject egg;
     public GameObject deadSprite;
 
+    public AudioSource music;
     AudioSource chickenAudio;
     public AudioClip[] chickenFart;
     public AudioClip chickenJump;
@@ -130,7 +131,10 @@ public class ChickenMovement : MonoBehaviour
         rotate = false;
 
         yield return new WaitForSeconds(2f);
-        Instantiate(deadSprite, gameObject.transform.position, Quaternion.identity);
+        GameObject deadChicken = Instantiate(deadSprite, transform.position, Quaternion.identity);
+        deadChicken.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 2f);
+        yield return new WaitForSeconds(0.7f);
+        deadChicken.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
     }
 
     public void Dead()
@@ -151,6 +155,6 @@ public class ChickenMovement : MonoBehaviour
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         sr.color = new Color(1, 0.6f, 0.6f, 1);
 
-
+        music.GetComponent<AudioSource>().Pause();
     }
 }
