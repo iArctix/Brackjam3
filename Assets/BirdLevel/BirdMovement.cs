@@ -55,7 +55,7 @@ public class BirdMovement : MonoBehaviour
         {
             birdRigidbody.velocity += Vector2.up * Physics2D.gravity.y * (fall-1) * Time.deltaTime;
         }
-        else if(birdRigidbody.velocity.y > 0  && !Input.GetMouseButton(0))
+        else if(birdRigidbody.velocity.y > 0  && !Input.GetButtonDown("Jump"))
         {
             birdRigidbody.velocity += Vector2.up * Physics2D.gravity.y *(lowjump-1)*Time.deltaTime;
         }
@@ -65,7 +65,7 @@ public class BirdMovement : MonoBehaviour
         if (isalive)
         {
             //Vertical Movement
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetButtonDown("Jump"))
             {
                 birdRigidbody.velocity = Vector2.zero;
                 birdRigidbody.AddForce(new Vector2(0, upForce));
