@@ -14,6 +14,8 @@ public class OldManScene : MonoBehaviour
     public GameObject enterPress;
 
     bool canSkip;
+
+    public GameObject fadetoWhiteAudio;
     private void Start()
     {
         StartCoroutine(OldManIntroScene());
@@ -31,6 +33,7 @@ public class OldManScene : MonoBehaviour
         text2.SetActive(false);
         yield return new WaitForSeconds(3);
         whitePanel.SetActive(true);
+        fadetoWhiteAudio.SetActive(true);
         yield return new WaitForSeconds(5f);
         chicken.SetActive(true);
         yield return new WaitForSeconds(3);
