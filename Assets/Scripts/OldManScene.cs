@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class OldManScene : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class OldManScene : MonoBehaviour
     public GameObject[] tutorial;
     public GameObject enterPress;
 
+    bool canSkip;
     private void Start()
     {
         StartCoroutine(OldManIntroScene());
@@ -41,5 +43,14 @@ public class OldManScene : MonoBehaviour
         }
         yield return new WaitForSeconds(5);
         enterPress.SetActive(true);
+        canSkip = true;
+    }
+
+    private void Update()
+    {
+        if (canSkip && Input.GetKeyDown(KeyCode.Return))
+        {
+            SceneManager.LoadScene(2);
+        }
     }
 }
