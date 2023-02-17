@@ -4,36 +4,43 @@ using UnityEngine;
 
 public class BirdBuilding : MonoBehaviour
 {
-    public GameObject[] buildings;
+    public GameObject objects;
     float time;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        SpawnBuilding();
-    }
-
-    // Update is called once per frame
     void Update()
     {
         float countdown = time -= Time.deltaTime;
         if(countdown <= 0)
         {
-            SpawnBuilding();
+            int doubleSpawn = Random.Range(0, 2);
+            if (doubleSpawn == 0)
+            {
+                SpawnBuilding();
+            }else
+            {
+                SpawnBuilding();
+                StartCoroutine(DoubleSpawn());
+            }
             Randomtime();
         }
     }
     void SpawnBuilding()
     {
         float y = Random.Range(-3.5f, 4);
-        int t = Random.Range(0, buildings.Length);
         Vector2 spawnPos = new Vector2(gameObject.transform.position.x + 20, y);
-        GameObject newbuilding = Instantiate(buildings[t], spawnPos,Quaternion.identity);
-        
+        GameObject newbuilding = Instantiate(objects, spawnPos,Quaternion.identity);  
+        Destroy(newbuilding, 15f);
     }
 
     void Randomtime()
     {
         time = Random.Range(1,5);
+    }
+
+    IEnumerator DoubleSpawn()
+    {
+        float t = Random.Range(0.5f, 2);
+        yield return new WaitForSeconds(t);
+        SpawnBuilding();
     }
 }

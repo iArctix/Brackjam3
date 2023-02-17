@@ -30,6 +30,7 @@ public class BirdMovement : MonoBehaviour
     Animator birdAnim;
     bool isAnimated;
     bool rotate;
+    public GameObject deadBird;
 
     private void Start()
     {
@@ -42,7 +43,6 @@ public class BirdMovement : MonoBehaviour
     {
         Movement();
         Timer();
-        CameraMovement();
 
         if(rotate)
             birdRigidbody.rotation += 1f;
@@ -52,9 +52,12 @@ public class BirdMovement : MonoBehaviour
     {
         StartCoroutine(Dead());
     }
-    public void CameraMovement()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if(collision.gameObject.tag == "Obstacle")
+        {
+            StartCoroutine(Dead());
+        }
     }
 
     void Movement()
@@ -113,11 +116,11 @@ public class BirdMovement : MonoBehaviour
         yield return new WaitForSeconds(1f);
         rotate = false;
 
-
-        //Whatever this is 
-      
-        yield return new WaitForSeconds(0.2f);
-        Camera.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        yield return new WaitForSeconds(2f);
+        GameObject deadBirdd = Instantiate(deadBird, transform.position, Quaternion.identity);
+        deadBirdd.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 2f);
+        yield return new WaitForSeconds(0.7f);
+        deadBirdd.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
     }
 
     IEnumerator BirdFlyAnimation()
