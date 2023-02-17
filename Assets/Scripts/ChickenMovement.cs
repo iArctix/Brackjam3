@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class ChickenMovement : MonoBehaviour
 {
+    public static float endtimechicken;
+
     public float speed = 5f;
     public float jumpForce;
     public float fall;
@@ -143,7 +145,7 @@ public class ChickenMovement : MonoBehaviour
         TimeSystem ts = GetComponent<TimeSystem>();
         ts.isDead = true;
         float timeSurvived = ts.time;
-
+        endtimechicken = timeSurvived;
         //Disable Things
         isDead = true;
         GetComponent<ChickenObstacleSpawning>().enabled = false;
