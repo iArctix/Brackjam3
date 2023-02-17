@@ -94,13 +94,13 @@ public class BirdMovement : MonoBehaviour
         if(isalive)
         {
             float t = Time.time - startTime;
-            string minutes = ((int)t / 60).ToString();
-            string seconds = (t % 60).ToString("F3");
+            //string minutes = ((int)t / 60).ToString();
+            string seconds = (t % 60).ToString("F1");
             //vars that store final time
-            minutesfinal = minutes;
+            //minutesfinal = minutes;
             secondsfinal = seconds;
         }
-        timertext.text = "Time: " + minutesfinal + ":" + secondsfinal;
+        timertext.text = "Time: " + secondsfinal;
     }
     IEnumerator Dead()
     {

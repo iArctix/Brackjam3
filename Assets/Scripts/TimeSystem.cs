@@ -13,6 +13,8 @@ public class TimeSystem : MonoBehaviour
     bool maxSpeed = false;
 
     public bool isDead;
+    bool chicken;
+    
 
     public TextMeshProUGUI timeText;
     private void FixedUpdate()
@@ -30,12 +32,16 @@ public class TimeSystem : MonoBehaviour
                 }
                 if (!maxSpeed)
                 {
-                    GetComponent<ChickenMovement>().speed++;
-                    currentTime++;
+                    if(chicken)
+                    {
+                        GetComponent<ChickenMovement>().speed++;
+                        currentTime++;
 
-                    ChickenObstacleSpawning cos =  GetComponent<ChickenObstacleSpawning>();
-                    cos.minSpawn -= 0.2f;
-                    cos.maxSpawn -= 0.25f;
+                        ChickenObstacleSpawning cos = GetComponent<ChickenObstacleSpawning>();
+                        cos.minSpawn -= 0.2f;
+                        cos.maxSpawn -= 0.25f;
+                    }
+                   
                 }
             }
         }
