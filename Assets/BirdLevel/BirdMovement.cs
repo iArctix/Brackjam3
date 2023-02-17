@@ -107,7 +107,7 @@ public class BirdMovement : MonoBehaviour
         //Change to Red
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         sr.color = new Color(1, 0.6f, 0.6f, 1);
-
+        isalive = false;
         //Do some Rotation
         rotate = true;
         yield return new WaitForSeconds(1f);
@@ -115,7 +115,7 @@ public class BirdMovement : MonoBehaviour
 
 
         //Whatever this is 
-        isalive = false;
+      
         yield return new WaitForSeconds(0.2f);
         Camera.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
     }
