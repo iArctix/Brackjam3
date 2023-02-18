@@ -8,7 +8,7 @@ public class ChickenMovement : MonoBehaviour
 {
     public static float endtimechicken;
 
-    public float speed = 5f;
+    public float speed;
     public float jumpForce;
     public float fall;
     public float lowJump;
@@ -29,17 +29,23 @@ public class ChickenMovement : MonoBehaviour
 
     bool isDead;
     bool rotate;
+    bool spawned;
 
     public GameObject barrier;
 
     public GameObject jumpParticles;
     public GameObject doubleJumpParticles;
+
+    public GameObject endText1;
+    public GameObject endText2;
+    public GameObject panel;
     public void Start()
     {
         chickenAnim = GetComponent<Animator>();
         chickenAudio= GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
         jumpCount = 2f;
+        speed = 5f;
     }
 
     public void FixedUpdate()
@@ -47,6 +53,7 @@ public class ChickenMovement : MonoBehaviour
         if (!isDead)
         {
             rb.velocity = new Vector2(speed, rb.velocity.y);
+            speed = speed += 0.5f * Time.deltaTime;
         }
 
         if (rotate)
@@ -71,6 +78,12 @@ public class ChickenMovement : MonoBehaviour
         }
 
         barrier.transform.position = new Vector3(gameObject.transform.position.x - 20, barrier.transform.position.y, barrier.transform.position.z);
+
+        if (rb.velocity == Vector2.zero && !spawned)
+        {
+            StartCoroutine(DeadChicken());
+            spawned = true;
+        }
     }
 
     public void Jump()
@@ -132,14 +145,6 @@ public class ChickenMovement : MonoBehaviour
         rotate = true;
         yield return new WaitForSeconds(1f);
         rotate = false;
-
-        yield return new WaitForSeconds(2f);
-        GameObject deadChicken = Instantiate(deadSprite, transform.position, Quaternion.identity);
-        deadChicken.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 2f);
-        yield return new WaitForSeconds(0.7f);
-        deadChicken.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-        yield return new WaitForSeconds(10);
-        SceneManager.LoadScene(3);
     }
 
     public void Dead()
@@ -161,5 +166,26 @@ public class ChickenMovement : MonoBehaviour
         sr.color = new Color(1, 0.6f, 0.6f, 1);
 
         music.GetComponent<AudioSource>().Pause();
+    }
+
+    IEnumerator DeadChicken()
+    {
+        yield return new WaitForSeconds(2f);
+        GameObject deadChicken = Instantiate(deadSprite, transform.position, Quaternion.identity);
+        deadChicken.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 2f);
+        yield return new WaitForSeconds(0.7f);
+        deadChicken.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        yield return new WaitForSeconds(2f);
+        endText1.SetActive(true);
+        yield return new WaitForSeconds(5);
+        endText1.SetActive(false);
+        yield return new WaitForSeconds(2);
+        endText2.SetActive(true);
+        yield return new WaitForSeconds(5);
+        endText2.SetActive(false);
+        yield return new WaitForSeconds(2);
+        panel.SetActive(true);
+        yield return new WaitForSeconds(10);
+        SceneManager.LoadScene(3);
     }
 }
