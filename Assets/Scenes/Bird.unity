@@ -202,6 +202,7 @@ GameObject:
   - component: {fileID: 451600094}
   - component: {fileID: 451600097}
   - component: {fileID: 451600093}
+  - component: {fileID: 451600099}
   - component: {fileID: 451600092}
   - component: {fileID: 451600091}
   - component: {fileID: 451600096}
@@ -253,7 +254,6 @@ MonoBehaviour:
   acceleration: 0.3
   Camera: {fileID: 663353330}
   Player: {fileID: 451600090}
-  isalive: 0
   timertext: {fileID: 1242138849}
   deadBird: {fileID: 8021961761910724369, guid: bd5877c901277c247a9ca4900cb3bd5e, type: 3}
 --- !u!61 &451600093
@@ -494,6 +494,20 @@ TrailRenderer:
   m_Autodestruct: 1
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!114 &451600099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451600090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6ad58a26cebcf5478650a01c1a9cdb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bird: {fileID: 451600091}
+  deadBird: {fileID: 8021961761910724369, guid: bd5877c901277c247a9ca4900cb3bd5e, type: 3}
 --- !u!1 &663353330
 GameObject:
   m_ObjectHideFlags: 0
@@ -846,7 +860,7 @@ GameObject:
   - component: {fileID: 822197546}
   m_Layer: 0
   m_Name: Square (1)
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1194,7 +1208,7 @@ GameObject:
   - component: {fileID: 1324781174}
   m_Layer: 0
   m_Name: PlayerDeathBarriers
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1229,7 +1243,7 @@ GameObject:
   - component: {fileID: 1549740019}
   m_Layer: 0
   m_Name: Square
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

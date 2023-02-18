@@ -19,7 +19,7 @@ public class BirdMovement : MonoBehaviour
     private Rigidbody2D birdRigidbody;
     public GameObject Camera;
     public GameObject Player;
-    public bool isalive;
+   
     //Timer Vars
     public static string minutesfinal;
     public static string secondsfinal;
@@ -32,11 +32,15 @@ public class BirdMovement : MonoBehaviour
     bool rotate;
     public GameObject deadBird;
 
+    int dead = 0;
+
     private void Start()
     {
+        Player.GetComponent<BirdDeath>();
         birdRigidbody = GetComponent<Rigidbody2D>();
         birdAnim = GetComponent<Animator>();
-        isalive = true;
+        dead = 0;
+        
         startTime = Time.time;
     }
     private void Update()
@@ -50,13 +54,18 @@ public class BirdMovement : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        StartCoroutine(Dead());
+        if (collision.gameObject.tag == "Obstacle" && dead < 1)
+        {
+            StartCoroutine(Death());
+            dead++;
+        }
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Obstacle" && isalive)
+        if(collision.gameObject.tag == "Obstacle" && dead < 1 )
         {
-            StartCoroutine(Dead());
+            StartCoroutine(Death());
+            dead++;
         }
     }
 
@@ -73,8 +82,9 @@ public class BirdMovement : MonoBehaviour
 
 
 
-        if (isalive)
-        {
+
+        
+            
             //Vertical Movement
             if (Input.GetButtonDown("Jump"))
             {
@@ -89,42 +99,48 @@ public class BirdMovement : MonoBehaviour
             //Horizontal Movement
             transform.position += new Vector3(rightspeed * Time.deltaTime, 0, 0);
             rightspeed += acceleration * Time.deltaTime;
-        }
+        
         
     }
     public void Timer()
     {
-        if(isalive)
-        {
+        
+        
             float t = Time.time - startTime;
             //string minutes = ((int)t / 60).ToString();
             string seconds = (t % 60).ToString("F1");
             //vars that store final time
             //minutesfinal = minutes;
             secondsfinal = seconds;
-        }
+        
         timertext.text = "Time: " + secondsfinal;
     }
-    IEnumerator Dead()
+    IEnumerator Death()
     {
-        //Change to Red
-        SpriteRenderer sr = GetComponent<SpriteRenderer>();
-        sr.color = new Color(1, 0.6f, 0.6f, 1);
-        isalive = false;
-        //Do some Rotation
-        rotate = true;
-        yield return new WaitForSeconds(1f);
-        rotate = false;
+        
+           birdRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+          //Change to Red
+          SpriteRenderer sr = GetComponent<SpriteRenderer>();
+          sr.color = new Color(1, 0.6f, 0.6f, 1);
 
+          //Do some Rotation
+          rotate = true;
+          yield return new WaitForSeconds(1f);
+          rotate = false;
+        birdRigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
         yield return new WaitForSeconds(2f);
-        GameObject deadBirdd = Instantiate(deadBird, transform.position, Quaternion.identity);
-        deadBirdd.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 2f);
-        yield return new WaitForSeconds(0.7f);
-        deadBirdd.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+          GameObject deadBirdd = Instantiate(deadBird, transform.position, Quaternion.identity);
+          deadBirdd.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 2f);
+          yield return new WaitForSeconds(0.7f);
+          deadBirdd.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        this.enabled = false;
+        
+
     }
 
     IEnumerator BirdFlyAnimation()
     {
+       
         birdAnim.SetBool("isFly", true);
         isAnimated = true;
         yield return new WaitForSeconds(0.5f);

@@ -29,7 +29,7 @@ public class BirdBuilding : MonoBehaviour
         float y = Random.Range(-3.5f, 4);
         Vector2 spawnPos = new Vector2(gameObject.transform.position.x + 20, y);
         GameObject newbuilding = Instantiate(objects, spawnPos,Quaternion.identity);  
-        Destroy(newbuilding, 15f);
+        //Destroy(newbuilding, 15f);
     }
 
     void Randomtime()
