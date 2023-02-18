@@ -10,4 +10,6 @@ public class BirdObjectData : ScriptableObject
     public float maxSpeed;
     public Vector2 boxColliderSize;
     public bool flipX;
+
+    public AudioClip audio;
 }

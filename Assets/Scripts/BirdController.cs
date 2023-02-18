@@ -7,9 +7,14 @@ public class BirdController : MonoBehaviour
 {
     Rigidbody2D rb;
     Animator birdAnim;
+    GameObject music;
+    AudioSource birdAudio;
+
     [Header("GameObjects")]
     public GameObject cam;
     public GameObject deadBird;
+    public GameObject barrier;
+
     [Header("Stats")]
     public float speed;
     public float jumpForce;
@@ -18,10 +23,19 @@ public class BirdController : MonoBehaviour
     bool dead;
     bool rotate;
     bool isAnimated;
+
+    [Header("AudioClips")]
+    public AudioClip jump;
+    public AudioClip death;
     private void Start()
     {
+        music = GameObject.Find("Music");
+        if(music != null)
+            music.GetComponent<AudioSource>().Play();
+
         rb = GetComponent<Rigidbody2D>();
         birdAnim = GetComponent<Animator>();
+        birdAudio = GetComponent<AudioSource>();
     }
     private void Update()
     {
@@ -33,7 +47,6 @@ public class BirdController : MonoBehaviour
             }
             Movement();
         }
-
         if (rb.velocity.y < 0)
         {
             rb.velocity += Vector2.up * Physics2D.gravity.y * (fall - 1) * Time.deltaTime;
@@ -43,8 +56,7 @@ public class BirdController : MonoBehaviour
             rb.velocity += Vector2.up * Physics2D.gravity.y * (lowjump - 1) * Time.deltaTime;
         }
 
-        if (rotate)
-            rb.rotation += 1f;
+        barrier.transform.position = new Vector3(gameObject.transform.position.x - 15, 0, 0);
     }
     private void LateUpdate()
     {
@@ -57,11 +69,19 @@ public class BirdController : MonoBehaviour
     void Jump()
     {
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        birdAudio.clip = jump;
+        birdAudio.Play();
+
+        StartCoroutine(BirdFlyAnimation());
     }
 
     IEnumerator Death()
     {
         dead = true;
+        GetComponent<BirdBuilding>().enabled = false;
+        //Audio
+        birdAudio.clip = death;
+        birdAudio.Play();
 
         //Change to Red
         SpriteRenderer sr = GetComponent<SpriteRenderer>();

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ChickenMovement : MonoBehaviour
 {
@@ -137,6 +138,8 @@ public class ChickenMovement : MonoBehaviour
         deadChicken.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 2f);
         yield return new WaitForSeconds(0.7f);
         deadChicken.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        yield return new WaitForSeconds(10);
+        SceneManager.LoadScene(3);
     }
 
     public void Dead()
