@@ -202,11 +202,10 @@ GameObject:
   - component: {fileID: 451600094}
   - component: {fileID: 451600097}
   - component: {fileID: 451600093}
-  - component: {fileID: 451600099}
-  - component: {fileID: 451600092}
   - component: {fileID: 451600091}
   - component: {fileID: 451600096}
   - component: {fileID: 451600098}
+  - component: {fileID: 451600099}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -231,31 +230,10 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
---- !u!114 &451600092
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 451600090}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eebdfa75f9736054fad8a3f3a8b7ea74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  upForce: 400
-  fall: 1.7
-  lowjump: 2
-  rightspeed: 4
-  acceleration: 0.3
-  Camera: {fileID: 663353330}
-  Player: {fileID: 451600090}
-  timertext: {fileID: 1242138849}
-  deadBird: {fileID: 8021961761910724369, guid: bd5877c901277c247a9ca4900cb3bd5e, type: 3}
 --- !u!61 &451600093
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -342,11 +320,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 451600090}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.72, y: 0.1, z: 0}
+  m_LocalPosition: {x: -9, y: 0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 663353333}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -491,7 +468,7 @@ TrailRenderer:
     generateLightingData: 0
   m_MinVertexDistance: 0.1
   m_MaskInteraction: 0
-  m_Autodestruct: 1
+  m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
 --- !u!114 &451600099
@@ -503,10 +480,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 451600090}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6ad58a26cebcf5478650a01c1a9cdb4, type: 3}
+  m_Script: {fileID: 11500000, guid: d4a415cabbb287c4eb397ed043956a79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bird: {fileID: 451600091}
+  cam: {fileID: 663353330}
+  speed: 5
+  jumpForce: 8
+  fall: 1.7
+  lowjump: 2
   deadBird: {fileID: 8021961761910724369, guid: bd5877c901277c247a9ca4900cb3bd5e, type: 3}
 --- !u!1 &663353330
 GameObject:
@@ -519,7 +500,6 @@ GameObject:
   - component: {fileID: 663353333}
   - component: {fileID: 663353332}
   - component: {fileID: 663353331}
-  - component: {fileID: 663353334}
   - component: {fileID: 663353337}
   - component: {fileID: 663353336}
   - component: {fileID: 663353335}
@@ -589,34 +569,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 663353330}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.7200003, y: 0, z: -10}
+  m_LocalPosition: {x: -3, y: 0.1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 451600095}
-  m_RootOrder: -1
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!50 &663353334
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 663353330}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 0.0001
-  m_LinearDrag: 0
-  m_AngularDrag: 0
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &663353335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1404,7 +1363,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 2
-  m_Size: {x: 10000, y: 32}
+  m_Size: {x: 5000, y: 32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1418,7 +1377,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1606574976}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4896.93, y: 9.14, z: 10}
+  m_LocalPosition: {x: 2487, y: 9.14, z: 10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
