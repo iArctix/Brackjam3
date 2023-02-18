@@ -23,6 +23,7 @@ public class BirdController : MonoBehaviour
     bool dead;
     bool rotate;
     bool isAnimated;
+    bool spawned;
 
     [Header("AudioClips")]
     public AudioClip jump;
@@ -57,6 +58,12 @@ public class BirdController : MonoBehaviour
         }
 
         barrier.transform.position = new Vector3(gameObject.transform.position.x - 15, 0, 0);
+
+        if(rb.velocity == Vector2.zero && !spawned)
+        {
+            StartCoroutine(DeadBird());
+            spawned = true;
+        }
     }
     private void LateUpdate()
     {
@@ -65,6 +72,7 @@ public class BirdController : MonoBehaviour
     void Movement()
     {
         rb.velocity = new Vector2(speed, rb.velocity.y);
+        speed = speed += 0.5f * Time.deltaTime;
     }
     void Jump()
     {
@@ -86,18 +94,7 @@ public class BirdController : MonoBehaviour
         //Change to Red
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         sr.color = new Color(1, 0.6f, 0.6f, 1);
-
-        //Do some Rotation
-        rotate = true;
-        yield return new WaitForSeconds(1f);
-        rotate = false;
-
-        //Dead Bird
-        yield return new WaitForSeconds(2f);
-        GameObject deadBirdd = Instantiate(deadBird, transform.position, Quaternion.identity);
-        deadBirdd.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 2f);
-        yield return new WaitForSeconds(0.7f);
-        deadBirdd.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        yield return new WaitForSeconds(0.1f);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -122,5 +119,14 @@ public class BirdController : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         birdAnim.SetBool("isFly", false);
         isAnimated = false;
+    }
+
+    IEnumerator DeadBird()
+    {
+        yield return new WaitForSeconds(2f);
+        GameObject deadBirdd = Instantiate(deadBird, transform.position, Quaternion.identity);
+        deadBirdd.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 2f);
+        yield return new WaitForSeconds(0.7f);
+        deadBirdd.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
     }
 }

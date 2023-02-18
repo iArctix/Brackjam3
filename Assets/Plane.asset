@@ -18,3 +18,4 @@ MonoBehaviour:
   maxSpeed: -8
   boxColliderSize: {x: 1.7, y: 0.5}
   flipX: 1
+  audio: {fileID: 8300000, guid: aa3c40e0bb095344dab963e171691669, type: 3}

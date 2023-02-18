@@ -13,39 +13,48 @@ public class TimeSystem : MonoBehaviour
     bool maxSpeed = false;
 
     public bool isDead;
-    bool chicken;
-    
-
+    public bool chicken;
+    bool speedIncrease;
+   
     public TextMeshProUGUI timeText;
+
+    private void Start()
+    {
+        if (chicken)
+        {
+            speedIncrease = true;
+        }
+    }
     private void FixedUpdate()
     {
         if (!isDead)
         {
             time = time += Time.deltaTime;
-            if (time > times[currentTime] && !maxSpeed)
+            if (speedIncrease)
             {
-                if (currentTime >= times.Length)
+                if (time > times[currentTime] && !maxSpeed)
                 {
-                    maxSpeed = true;
-                    currentTime = 8;
-                    return;
-                }
-                if (!maxSpeed)
-                {
-                    if(chicken)
+                    if (currentTime >= times.Length)
                     {
-                        GetComponent<ChickenMovement>().speed++;
-                        currentTime++;
-
-                        ChickenObstacleSpawning cos = GetComponent<ChickenObstacleSpawning>();
-                        cos.minSpawn -= 0.2f;
-                        cos.maxSpawn -= 0.25f;
+                        maxSpeed = true;
+                        currentTime = 8;
+                        return;
                     }
-                   
+                    if (!maxSpeed)
+                    {
+                        if (chicken)
+                        {
+                            GetComponent<ChickenMovement>().speed++;
+                            currentTime++;
+
+                            ChickenObstacleSpawning cos = GetComponent<ChickenObstacleSpawning>();
+                            cos.minSpawn -= 0.2f;
+                            cos.maxSpawn -= 0.25f;
+                        }
+                    }
                 }
             }
         }
-
         timeText.text = time.ToString("F1");
     }
 }

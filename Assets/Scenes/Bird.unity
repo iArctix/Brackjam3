@@ -207,6 +207,7 @@ GameObject:
   - component: {fileID: 451600098}
   - component: {fileID: 451600099}
   - component: {fileID: 451600100}
+  - component: {fileID: 451600101}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -589,6 +590,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &451600101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 451600090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d34287b25e36a9849bb44eebc385a5d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  time: 0
+  times: []
+  isDead: 0
+  chicken: 0
+  timeText: {fileID: 1242138849}
 --- !u!1 &663353330
 GameObject:
   m_ObjectHideFlags: 0
