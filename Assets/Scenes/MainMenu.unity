@@ -1168,7 +1168,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: In Another Life...
+  m_text: In My Next Life...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 58f8f153e214c604c84c8e429b48ea18, type: 2}
   m_sharedMaterial: {fileID: 6669293760002728291, guid: 58f8f153e214c604c84c8e429b48ea18, type: 2}
