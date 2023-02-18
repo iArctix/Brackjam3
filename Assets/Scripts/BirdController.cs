@@ -5,6 +5,8 @@ using UnityEngine.UIElements;
 
 public class BirdController : MonoBehaviour
 {
+    public static float finalTime;
+
     Rigidbody2D rb;
     Animator birdAnim;
     GameObject music;
@@ -88,6 +90,10 @@ public class BirdController : MonoBehaviour
         music.GetComponent<AudioSource>().Stop();
         dead = true;
         GetComponent<BirdBuilding>().enabled = false;
+
+        TimeSystem ts = GetComponent<TimeSystem>();
+        finalTime = ts.time;
+        ts.isDead = true;
         //Audio
         birdAudio.clip = death;
         birdAudio.Play();

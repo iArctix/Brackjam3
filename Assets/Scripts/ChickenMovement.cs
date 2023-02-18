@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -30,6 +31,7 @@ public class ChickenMovement : MonoBehaviour
     bool isDead;
     bool rotate;
     bool spawned;
+    bool canSkip;
 
     public GameObject barrier;
 
@@ -39,6 +41,11 @@ public class ChickenMovement : MonoBehaviour
     public GameObject endText1;
     public GameObject endText2;
     public GameObject panel;
+    public GameObject bird;
+    public GameObject birdText;
+    public GameObject[] birdTutorial;
+    public GameObject fadeAudio;
+    public GameObject enterPress;
     public void Start()
     {
         chickenAnim = GetComponent<Animator>();
@@ -83,6 +90,10 @@ public class ChickenMovement : MonoBehaviour
         {
             StartCoroutine(DeadChicken());
             spawned = true;
+        }
+        if (canSkip && Input.GetKeyDown(KeyCode.Return))
+        {
+            SceneManager.LoadScene(3);
         }
     }
 
@@ -185,7 +196,19 @@ public class ChickenMovement : MonoBehaviour
         endText2.SetActive(false);
         yield return new WaitForSeconds(2);
         panel.SetActive(true);
-        yield return new WaitForSeconds(10);
-        SceneManager.LoadScene(3);
+        fadeAudio.SetActive(true);
+        yield return new WaitForSeconds(5);
+        bird.SetActive(true);
+        yield return new WaitForSeconds(3);
+        birdText.SetActive(true);
+        yield return new WaitForSeconds(5);
+        birdText.SetActive(false);
+        foreach (var item in birdTutorial)
+        {
+            item.SetActive(true);
+        }
+        yield return new WaitForSeconds(5);
+        enterPress.SetActive(true);
+        canSkip = true;
     }
 }

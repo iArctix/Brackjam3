@@ -11,13 +11,7 @@ public class FinalTimes : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        birdfinal.text = "You survived " + BirdMovement.minutesfinal + ":" + BirdMovement.secondsfinal + " as the chicken.";
-        chickenfinal.text = "You Survived" +  ChickenMovement.endtimechicken + " Seconds"; 
+        birdfinal.text = "Bird = " + BirdController.finalTime;
+        chickenfinal.text = "You Survived" + ChickenMovement.endtimechicken + " Seconds";
     }
 }
