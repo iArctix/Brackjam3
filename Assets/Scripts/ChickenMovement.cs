@@ -52,7 +52,7 @@ public class ChickenMovement : MonoBehaviour
         chickenAudio= GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
         jumpCount = 2f;
-        speed = 5f;
+        speed = 0f;
     }
 
     public void FixedUpdate()
@@ -86,7 +86,7 @@ public class ChickenMovement : MonoBehaviour
 
         barrier.transform.position = new Vector3(gameObject.transform.position.x - 20, barrier.transform.position.y, barrier.transform.position.z);
 
-        if (rb.velocity == Vector2.zero && !spawned)
+        if (rb.velocity == Vector2.zero && !spawned && isDead)
         {
             StartCoroutine(DeadChicken());
             spawned = true;
