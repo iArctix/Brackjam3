@@ -29,9 +29,6 @@ public class MainMenu : MonoBehaviour
         rightspeed = 0;
         leftspeed = 0;
         chichenrb = GetComponent<Rigidbody2D>();
-
-
-
     }
     public void Update()
     {

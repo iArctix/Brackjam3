@@ -16,6 +16,7 @@ public class OldManScene : MonoBehaviour
     bool canSkip;
 
     public GameObject fadetoWhiteAudio;
+    public GameObject fadeout;
     private void Start()
     {
         StartCoroutine(OldManIntroScene());
@@ -53,7 +54,13 @@ public class OldManScene : MonoBehaviour
     {
         if (canSkip && Input.GetKeyDown(KeyCode.Return))
         {
-            SceneManager.LoadScene(2);
+            StartCoroutine(ChangeScene());
         }
+    }
+    IEnumerator ChangeScene()
+    {
+        fadeout.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene(2);
     }
 }
