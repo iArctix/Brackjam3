@@ -12,15 +12,8 @@ public class BirdBuilding : MonoBehaviour
         float countdown = time -= Time.deltaTime;
         if(countdown <= 0)
         {
-            int doubleSpawn = Random.Range(0, 2);
-            if (doubleSpawn == 0)
-            {
-                SpawnBuilding();
-            }else
-            {
-                SpawnBuilding();
-                StartCoroutine(DoubleSpawn());
-            }
+            SpawnBuilding();
+            StartCoroutine(DoubleSpawn());
             Randomtime();
         }
     }
@@ -29,7 +22,6 @@ public class BirdBuilding : MonoBehaviour
         float y = Random.Range(-3.5f, 4);
         Vector2 spawnPos = new Vector2(gameObject.transform.position.x + 20, y);
         GameObject newbuilding = Instantiate(objects, spawnPos,Quaternion.identity);  
-        //Destroy(newbuilding, 15f);
     }
 
     void Randomtime()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class BirdController : MonoBehaviour
@@ -33,18 +34,18 @@ public class BirdController : MonoBehaviour
 
 
     public GameObject controls;
-   
-   
+
+    public GameObject text1;
+    public GameObject text2;
+    public GameObject panel;
 
 
     private void Start()
     {
-        
-
         controls.SetActive(true);
 
         music = GameObject.Find("Music");
-        if(music != null)
+        if (music != null)
             music.GetComponent<AudioSource>().Play();
 
         rb = GetComponent<Rigidbody2D>();
@@ -58,33 +59,30 @@ public class BirdController : MonoBehaviour
             controls.SetActive(false);
         }
 
-        
+        if (!dead)
+        {
+            if (Input.GetButtonDown("Jump"))
+            {
+                Jump();
+            }
+            Movement();
+        }
+        if (rb.velocity.y < 0)
+        {
+            rb.velocity += Vector2.up * Physics2D.gravity.y * (fall - 1) * Time.deltaTime;
+        }
+        else if (rb.velocity.y > 0 && !Input.GetButtonDown("Jump"))
+        {
+            rb.velocity += Vector2.up * Physics2D.gravity.y * (lowjump - 1) * Time.deltaTime;
+        }
 
-            if (!dead)
-            {
-                if (Input.GetButtonDown("Jump"))
-                {
-                    Jump();
-                }
-                Movement();
-            }
-            if (rb.velocity.y < 0)
-            {
-                rb.velocity += Vector2.up * Physics2D.gravity.y * (fall - 1) * Time.deltaTime;
-            }
-            else if (rb.velocity.y > 0 && !Input.GetButtonDown("Jump"))
-            {
-                rb.velocity += Vector2.up * Physics2D.gravity.y * (lowjump - 1) * Time.deltaTime;
-            }
+        barrier.transform.position = new Vector3(gameObject.transform.position.x - 15, 0, 0);
 
-            barrier.transform.position = new Vector3(gameObject.transform.position.x - 15, 0, 0);
-
-            if (rb.velocity == Vector2.zero && !spawned)
-            {
-                StartCoroutine(DeadBird());
-                spawned = true;
-            }
-        
+        if (rb.velocity == Vector2.zero && !spawned && dead)
+        {
+            StartCoroutine(DeadBird());
+            spawned = true;
+        }
     }
     private void LateUpdate()
     {
@@ -96,7 +94,7 @@ public class BirdController : MonoBehaviour
         rb.velocity = new Vector2(speed, rb.velocity.y);
         speed = speed += 0.5f * Time.deltaTime;
     }
-    void Jump()
+    public void Jump()
     {
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         birdAudio.clip = jump;
@@ -158,5 +156,16 @@ public class BirdController : MonoBehaviour
         deadBirdd.GetComponent<Rigidbody2D>().velocity = new Vector2(0, 2f);
         yield return new WaitForSeconds(0.7f);
         deadBirdd.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        yield return new WaitForSeconds(2);
+        text1.SetActive(true);
+        yield return new WaitForSeconds(4f);
+        text1.SetActive(false);
+        yield return new WaitForSeconds(2f);
+        text2.SetActive(true);
+        yield return new WaitForSeconds(5f);
+        text2.SetActive(false);
+        panel.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene(4);
     }
 }

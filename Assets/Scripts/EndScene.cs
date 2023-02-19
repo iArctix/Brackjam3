@@ -25,12 +25,8 @@ public class EndScene : MonoBehaviour
     }
     void Update()
     {
-        Birdfinaltime.text = "You survived " + BirdController.finalTime + " seconds as a chicken";
-        Chickenfinaltime.text = "You survived " + ChickenMovement.endtimechicken + "seconds as a bird";
-
-       
-
-
+        Birdfinaltime.text = "You survived " + BirdController.finalTime.ToString("F1") + " seconds as a chicken";
+        Chickenfinaltime.text = "You survived " + ChickenMovement.endtimechicken.ToString("F1") + " seconds as a bird";
     }
 
     IEnumerator EndSceneTing()
@@ -53,14 +49,5 @@ public class EndScene : MonoBehaviour
         panel.SetActive(true);
         yield return new WaitForSeconds(1.1f);
         SceneManager.LoadScene(0);
-
-
-
-        
-        
-
-    }
-
-    
-   
+    }   
 }

@@ -22,18 +22,16 @@ public class Birdstart : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    private void FixedUpdate()
-    {
-        if (Input.GetKeyDown(KeyCode.Space) && !isstarted)
+        if (Input.GetButtonDown("Jump") && !isstarted)
         {
             Player.GetComponent<BirdController>().enabled = true;
             Player.GetComponent<BirdBuilding>().enabled = true;
             Player.GetComponent<TimeSystem>().enabled = true;
             controls.SetActive(false);
             Player.GetComponent<Rigidbody2D>().gravityScale = 1;
+
+            Player.GetComponent<BirdController>().Jump();
+            isstarted = true;
         }
     }
 }

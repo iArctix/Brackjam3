@@ -6,6 +6,7 @@ public class ChickenCountdown : MonoBehaviour
 {
     public GameObject chicken;
     public GameObject text;
+    bool done;
 
     private void Start()
     {
@@ -16,7 +17,7 @@ public class ChickenCountdown : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && !done)
         {
             chicken.GetComponent<ChickenMovement>().enabled = true;
             chicken.GetComponent<TimeSystem>().enabled = true;
@@ -24,6 +25,7 @@ public class ChickenCountdown : MonoBehaviour
             chicken.GetComponent<ChickenMovement>().speed = 5;
             chicken.GetComponent<ChickenMovement>().Jump();
             text.SetActive(false);
+            done = true;
         }
     }
 
