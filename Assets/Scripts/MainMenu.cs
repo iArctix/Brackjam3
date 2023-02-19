@@ -12,7 +12,8 @@ public class MainMenu : MonoBehaviour
     public GameObject playimage;
     public GameObject quitimage;
     private Rigidbody2D chichenrb;
-    public bool rotate ;
+    public bool rotate;
+    public GameObject fadeout;
     
     public GameObject car;
 
@@ -21,8 +22,8 @@ public class MainMenu : MonoBehaviour
 
     float rightspeed =5;
     float leftspeed = 0;
-    
 
+    bool dieded;
     public void Start()
     {
         rightspeed = 0;
@@ -34,11 +35,14 @@ public class MainMenu : MonoBehaviour
     }
     public void Update()
     {
-        transform.position += new Vector3(rightspeed * Time.deltaTime, 0, 0);
+        if (!dieded)
+        {
+            transform.position += new Vector3(rightspeed * Time.deltaTime, 0, 0);
+        }
         car.transform.position += new Vector3 ( -(leftspeed * Time.deltaTime), 0, 0);
 
         if (rotate)
-            chichenrb.rotation += 2f;
+            chichenrb.rotation += 1f;
     }
     public void Startgame()
     {
@@ -54,9 +58,9 @@ public class MainMenu : MonoBehaviour
         rightspeed = 0;
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         sr.color = new Color(1, 0.6f, 0.6f, 1);
-        rotate = false;
         yield return new WaitForSeconds(1f);
-        rotate = true;
+        fadeout.SetActive(true);
+        yield return new WaitForSeconds(3f);
         SceneManager.LoadScene(1);
 
 
@@ -99,5 +103,14 @@ public class MainMenu : MonoBehaviour
         
         Quittext.color = Color.black;
         Quittext.fontSize = 60;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Obstacle")
+        {
+            chichenrb.velocity = new Vector2(-5, 15);
+            //rotate = true;
+        }
     }
 }
