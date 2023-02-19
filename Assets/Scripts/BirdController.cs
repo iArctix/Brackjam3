@@ -107,7 +107,10 @@ public class BirdController : MonoBehaviour
 
     IEnumerator Death()
     {
-        music.GetComponent<AudioSource>().Stop();
+        if(music != null)
+        {
+            music.GetComponent<AudioSource>().Stop();
+        }
         dead = true;
         GetComponent<BirdBuilding>().enabled = false;
 
