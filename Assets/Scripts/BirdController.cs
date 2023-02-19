@@ -30,8 +30,19 @@ public class BirdController : MonoBehaviour
     [Header("AudioClips")]
     public AudioClip jump;
     public AudioClip death;
+
+
+    public GameObject controls;
+   
+   
+
+
     private void Start()
     {
+        
+
+        controls.SetActive(true);
+
         music = GameObject.Find("Music");
         if(music != null)
             music.GetComponent<AudioSource>().Play();
@@ -42,33 +53,42 @@ public class BirdController : MonoBehaviour
     }
     private void Update()
     {
-        if (!dead)
+        if(Input.GetKeyUp(KeyCode.Space) )
         {
-            if (Input.GetButtonDown("Jump"))
+            controls.SetActive(false);
+        }
+
+        
+
+            if (!dead)
             {
-                Jump();
+                if (Input.GetButtonDown("Jump"))
+                {
+                    Jump();
+                }
+                Movement();
             }
-            Movement();
-        }
-        if (rb.velocity.y < 0)
-        {
-            rb.velocity += Vector2.up * Physics2D.gravity.y * (fall - 1) * Time.deltaTime;
-        }
-        else if (rb.velocity.y > 0 && !Input.GetButtonDown("Jump"))
-        {
-            rb.velocity += Vector2.up * Physics2D.gravity.y * (lowjump - 1) * Time.deltaTime;
-        }
+            if (rb.velocity.y < 0)
+            {
+                rb.velocity += Vector2.up * Physics2D.gravity.y * (fall - 1) * Time.deltaTime;
+            }
+            else if (rb.velocity.y > 0 && !Input.GetButtonDown("Jump"))
+            {
+                rb.velocity += Vector2.up * Physics2D.gravity.y * (lowjump - 1) * Time.deltaTime;
+            }
 
-        barrier.transform.position = new Vector3(gameObject.transform.position.x - 15, 0, 0);
+            barrier.transform.position = new Vector3(gameObject.transform.position.x - 15, 0, 0);
 
-        if(rb.velocity == Vector2.zero && !spawned)
-        {
-            StartCoroutine(DeadBird());
-            spawned = true;
-        }
+            if (rb.velocity == Vector2.zero && !spawned)
+            {
+                StartCoroutine(DeadBird());
+                spawned = true;
+            }
+        
     }
     private void LateUpdate()
     {
+        
         cam.transform.position = new Vector3(gameObject.transform.position.x + 6, cam.transform.position.y, -10);
     }
     void Movement()

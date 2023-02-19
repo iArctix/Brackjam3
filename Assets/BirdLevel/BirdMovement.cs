@@ -33,9 +33,15 @@ public class BirdMovement : MonoBehaviour
     public GameObject deadBird;
 
     int dead = 0;
+    public GameObject controls;
 
     private void Start()
     {
+        Time.timeScale = 0;
+        controls.SetActive(true);
+
+
+
         Player.GetComponent<BirdDeath>();
         birdRigidbody = GetComponent<Rigidbody2D>();
         birdAnim = GetComponent<Animator>();
@@ -45,6 +51,13 @@ public class BirdMovement : MonoBehaviour
     }
     private void Update()
     {
+        if(Input.GetKeyUp(KeyCode.Space))
+        {
+            Time.timeScale = 1;
+            controls.SetActive(false);
+        }
+
+
         Movement();
         Timer();
 
